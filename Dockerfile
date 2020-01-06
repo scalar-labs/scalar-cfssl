@@ -1,7 +1,13 @@
-FROM cloudflare-cfssl:1.4.1
+FROM golang:1.13.5-alpine3.11 as builder
 
-# Install goose
-RUN go get bitbucket.org/liamstask/goose/cmd/goose
+RUN set -x && \
+    apk add --no-cache git gcc libc-dev && \
+    go get bitbucket.org/liamstask/goose/cmd/goose
+
+# cloudflare-cfssl image is built with build.sh
+FROM cloudflare-cfssl:1.4.1-alpine
+
+COPY --from=builder /go/bin/goose /usr/local/bin
 
 ENV DATADIR /cfssl/data
 
@@ -9,8 +15,15 @@ RUN mkdir -p $DATADIR
 
 WORKDIR /cfssl
 
+# Copy certdb directory
+COPY cfssl/certdb /cfssl/certdb/
+
 # Copy config JSON files
 COPY config/*.json ./
+
+# Install bash for docker-entrypoint.sh
+RUN set -x && \
+    apk add --no-cache bash
 
 COPY docker-entrypoint.sh /usr/local/bin/
 

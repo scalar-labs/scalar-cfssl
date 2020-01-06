@@ -26,7 +26,7 @@ fi
 if [[ ! -f $DATADIR/certstore_development.db ]]; then
   # Run sqlite3 migration
   # This creates $DATADIR/certstore_development.db
-  (cd $DATADIR; goose -path /workdir/certdb/sqlite up)
+  (cd $DATADIR; goose -path /cfssl/certdb/sqlite up)
 fi
 
 case "$1" in
