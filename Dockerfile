@@ -6,7 +6,6 @@ RUN set -x && \
     apk add --no-cache git gcc libc-dev && \
     go get bitbucket.org/liamstask/goose/cmd/goose
 
-
 FROM $BASE_IMAGE
 
 COPY --from=builder /go/bin/goose /usr/local/bin
