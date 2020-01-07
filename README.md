@@ -7,4 +7,4 @@
 ```
 
 To publish the image, run `docker push scalarlabs/scalar-cfssl:<tag>`.
-Here `<tag>` should match the `IMAGE_TAG` value in `build.sh`.
+Here `<tag>` should match the `SCALAR_CFSSL_IMAGE_TAG` value in `build.sh`.
