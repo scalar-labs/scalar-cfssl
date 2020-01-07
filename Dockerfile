@@ -1,11 +1,13 @@
+ARG BASE_IMAGE
+
 FROM golang:1.13.5-alpine3.11 as builder
 
 RUN set -x && \
     apk add --no-cache git gcc libc-dev && \
     go get bitbucket.org/liamstask/goose/cmd/goose
 
-# cloudflare-cfssl image is built with build.sh
-FROM cloudflare-cfssl:1.4.1-alpine
+
+FROM $BASE_IMAGE
 
 COPY --from=builder /go/bin/goose /usr/local/bin
 
