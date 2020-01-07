@@ -10,4 +10,4 @@ git clone --depth 1 --branch $CFSSL_GIT_TAG https://github.com/cloudflare/cfssl.
 
 docker build cfssl -f cfssl/Dockerfile.alpine -t cloudflare-cfssl:$IMAGE_TAG
 
-docker build . -t scalarlabs/scalar-cfssl-server:$IMAGE_TAG
+docker build . -t scalarlabs/scalar-cfssl:$IMAGE_TAG
